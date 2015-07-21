@@ -1,0 +1,85 @@
+<!DOCTYPE html5>
+<html>
+  <head>
+    <title>Radio Schedule Time Test Page</title>
+    <script type="text/javascript">
+function updateBar() {
+  var hour_size = 100; // Include the thickness of top and bottom borders.
+
+  // Adjust Bar Postition / Div Size
+  var now = new Date();
+  var hour = now.getHours();
+  var minute = now.getMinutes();
+
+  var height = (hour * hour_size) + ((minute / 60) * hour_size);
+
+  document.getElementById('time-bar').style.height = height;
+
+  scrollPage();
+
+  setTimeout(function() { updateBar(); }, 30000);
+}
+
+function scrollPage() {
+  var time_bar_pos = parseInt(document.getElementById('time-bar').style.height);
+
+  if (time_bar_pos > 80) {
+    window.scrollTo(0, time_bar_pos - 80);
+  } else {
+    window.scrollTo(0, 0);
+  }
+}
+
+window.onload = function() { setTimeout(updateBar(), 2000); };
+    </script>
+    <style>
+body {
+  margin: 0;
+}
+div {
+  background: rgba(0,0,0,0.75);
+  width: 100%;
+  height: 99px;
+  border-top: solid white 1px;
+  color: white;
+  font-family: Arial;
+  font-size: 16pt;
+  text-align: right;
+}
+#time-bar {
+  width: 100%;
+  border: 0 0 2px 0;
+  border-bottom: solid red;
+  position: absolute;
+  top: 0;
+}
+    </style>
+  </head>
+  <body>
+    <div>00:00</div>
+    <div>01:00</div>
+    <div>02:00</div>
+    <div>03:00</div>
+    <div>04:00</div>
+    <div>05:00</div>
+    <div>06:00</div>
+    <div>07:00</div>
+    <div>08:00</div>
+    <div>09:00</div>
+    <div>10:00</div>
+    <div>11:00</div>
+    <div>12:00</div>
+    <div>13:00</div>
+    <div>14:00</div>
+    <div>15:00</div>
+    <div>16:00</div>
+    <div>17:00</div>
+    <div>18:00</div>
+    <div>19:00</div>
+    <div>20:00</div>
+    <div>21:00</div>
+    <div>22:00</div>
+    <div>23:00</div>
+    <div id="time-bar"></div>
+  </body>
+</html>
