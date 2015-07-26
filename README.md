@@ -5,12 +5,12 @@ your schedule has a fixed number of pixels per hour, the library overlays a red
 line at the present time and shades everything in the past.
 
 ## To Use
-Add the following to <head>:
+Add the following to `<head>`:
 ```javascript
 <script type="text/javascript" src="js/timestripe.js">
 ```
 
-And the following to the body of the document:
+And the following to the `<body>` of the document:
 ```javascript
 <div id="TimeStripe"></div>
 <script type="text/javascript">
