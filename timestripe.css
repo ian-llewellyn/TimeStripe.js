@@ -11,10 +11,3 @@ div {
   font-size: 16pt;
   text-align: right;
 }
-#time-bar {
-  width: 100%;
-  border: 0 0 2px 0;
-  border-bottom: solid red;
-  position: absolute;
-  top: 0;
-}
