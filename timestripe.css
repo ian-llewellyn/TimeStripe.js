@@ -10,4 +10,12 @@ div {
   font-family: Arial;
   font-size: 16pt;
   text-align: right;
+  overflow: hidden;
+}
+#TimeStripe {
+  width: 100%;
+  background-color: rgba(128,0,0,0.3);
+  border: 0 0 2px 0;
+  border-bottom: solid red;
+  position: absolute;
 }

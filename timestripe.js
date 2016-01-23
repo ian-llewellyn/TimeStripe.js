@@ -1,22 +1,21 @@
 function TimeStripe(dom_element) {
   this.element = dom_element;
   this.actor = 'height';
-  this.pixelsPerHour = 100;
+  this.unitsPerHour(100);
   this.scrolling = 'yes';
 
-  this.align('left');
+  //this.align('top');
 
-  this.style({
+  /*this.style({
     "width": "100%",
     "background-color": "rgba(128,0,0,0.3)",
     "border": "0 0 2px 0",
     "border-bottom": "solid red",
-    "position": "absolute",
-    "top": 0
-  });
+    "position": "absolute"
+  });*/
 
   var ts_obj = this;
-  window.onload = function() { ts_obj.updateBar(); };
+  window.onload = function() { ts_obj.updatePosition(); };
 }
 
 TimeStripe.prototype.style = function(styleObject) {
@@ -30,10 +29,12 @@ TimeStripe.prototype.style = function(styleObject) {
     var value = styleObject[attribute];
     this.element.style.setProperty(attribute, value);
   }
+
+  return this;
 }
 
 TimeStripe.prototype.align = function(alignment) {
-  alignment = typeof alignment !== 'undefined' ? alignment : 'left';
+  alignment = typeof alignment !== 'undefined' ? alignment : 'top';
 
   switch ( alignment ) {
   case 'left':
@@ -53,6 +54,8 @@ TimeStripe.prototype.align = function(alignment) {
     this.style({"bottom": 0, "left": 0});
     break;
   }
+
+  return this;
 }
 
 TimeStripe.prototype.animate = function(property) {
@@ -61,14 +64,19 @@ TimeStripe.prototype.animate = function(property) {
   } else {
     return this.actor;
   }
+
+  return this;
 }
 
-TimeStripe.prototype.pixelsPerHour = function(value) {
+TimeStripe.prototype.unitsPerHour = function(value) {
+alert(value);
   if ( typeof value !== 'undefined' ) {
-    this.pixelsPerHour = value;
+    this.hourSize = value;
   } else {
-    return this.pixelsPerHour;
+    return this.hourSize;
   }
+
+  return this;
 }
 
 TimeStripe.prototype.scroll = function(value) {
@@ -77,33 +85,34 @@ TimeStripe.prototype.scroll = function(value) {
   } else {
     return this.scrolling;
   }
+
+  return this;
 }
 
-TimeStripe.prototype.updateBar = function() {
-  var hour_size = 100; // Include the thickness of top and bottom borders.
-
+TimeStripe.prototype.updatePosition = function() {
   // Adjust Bar Postition / Div Size
   var now = new Date();
   var hour = now.getHours();
   var minute = now.getMinutes();
+  var second = now.getSeconds();
 
-  var height = (hour * hour_size) + ((minute / 60) * hour_size);
+  var value = (hour * this.hourSize) +
+              ((minute / 60) * this.hourSize) +
+              ((second / 3600) * this.hourSize);
 
-  this.element.style.height = height;
+  this.element.style.setProperty(this.actor, 'rotate(' + ( value % 360 ) + 'deg)');
 
   if ( this.scrolling == 'yes' ) this.scrollPage();
 
   var ts_obj = this;
-  setTimeout(function() { ts_obj.updateBar(); }, 30000);
+  setTimeout(function() { ts_obj.updatePosition(); }, 1000);
 }
 
 TimeStripe.prototype.scrollPage = function() {
   var time_bar_pos = parseInt(this.element.style.height);
 
   if (time_bar_pos > 80) {
-    while ( window.pageYOffset != (time_bar_pos - 80) ) {
-      window.scrollTo(0, time_bar_pos - 80);
-    }
+    window.scrollTo(0, time_bar_pos - 80);
   } else {
     window.scrollTo(0, 0);
   }
