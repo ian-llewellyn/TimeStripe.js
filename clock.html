@@ -1,0 +1,59 @@
+<!DOCTYPE html5>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Responsive Clock</title>
+    <script type="text/javascript" src="timestripe.js"></script>
+    <style type="text/css">
+body {
+  background-color: navy;
+  color: white;
+  font-size: 36pt;
+  overflow: hidden;
+  margin: 0;
+}
+.clock {
+  height: 84%;
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  top: 8%;
+}
+.digits {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  top: 0; 
+}
+</style>
+  </head>
+  <body>
+    <div id="face">
+      <div class="clock digits">I</div>
+      <div class="clock digits">II</div>
+      <div class="clock digits">III</div>
+      <div class="clock digits">IV</div>
+      <div class="clock digits">V</div>
+      <div class="clock digits">VI</div>
+      <div class="clock digits">VII</div>
+      <div class="clock digits">VIII</div>
+      <div class="clock digits">IX</div>
+      <div class="clock digits">X</div>
+      <div class="clock digits">XI</div>
+      <div class="clock digits">XII</div>
+    </div>
+    <div class="clock" id="a">†</div><div class="clock" id="b">|</div><div class="clock" id="c">^</div>
+    <script type="text/javascript">
+new TimeStripe(document.getElementById('c')).unitsPerHour(360*60).animate('transform', TimeStripeRotator).scrolling('no');
+new TimeStripe(document.getElementById('b')).unitsPerHour(360).animate('transform', TimeStripeRotator).scrolling('no');
+new TimeStripe(document.getElementById('a')).unitsPerHour(30).animate('transform', TimeStripeRotator).scrolling('no');
+
+var face = document.getElementById('face');
+for (var i = 0; i < face.children.length; i++ ) {
+  var angle = (i * 30) + 30;
+  face.children[i].style.setProperty('transform', 'rotate(' + angle + 'deg)');
+}
+    </script>
+  </body>
+</html>

@@ -11,8 +11,7 @@ function TimeStripe(dom_element) {
   // This is the default function used for CSS property values.
   this.func = function (units) { return units };
 
-  var ts_obj = this;
-  window.onload = function() { ts_obj.updatePosition(); };
+  setInterval((function() { this.updatePosition(); }).bind(this), 1000);
 }
 
 TimeStripe.prototype.style = function(styleObject) {
@@ -117,9 +116,6 @@ TimeStripe.prototype.updatePosition = function() {
   this.element.style.setProperty(this.actor, this.func(value));
 
   if ( this.scroll == 'yes' ) this.scrollPage();
-
-  var ts_obj = this;
-  setTimeout(function() { ts_obj.updatePosition(); }, 1000);
 }
 
 TimeStripe.prototype.scrollPage = function() {
