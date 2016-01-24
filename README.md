@@ -39,7 +39,7 @@ You can define a style for the DOM element you pass to the creator:
 Normally, the height of the CSS property animates as time goes by, however,
 you can easily specify any other numerical property to be animated:
 ```javascript
- TimeStripe(<DOM element>).animate('opacity', [min, max]);
+ TimeStripe(<DOM element>).animate('opacity');
 ```
 In the event that you want to do something a little more specific, you can pass
 a function to the animate method which should return the value to be assigned
