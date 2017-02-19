@@ -9,7 +9,7 @@ function TimeStripe(dom_element) {
   this.scroll = 'yes';
 
   // This is the default function used for CSS property values.
-  this.func = function (units) { return units };
+  this.func = function (units) { return units; };
 
   setInterval((function() { this.updatePosition(); }).bind(this), 1000);
 }
@@ -22,12 +22,14 @@ TimeStripe.prototype.style = function(styleObject) {
   }
 
   for ( var attribute in styleObject ) {
-    var value = styleObject[attribute];
-    this.element.style.setProperty(attribute, value);
+    if ( styleObject.hasOwnProperty(attribute) ) {
+      var value = styleObject[attribute];
+      this.element.style.setProperty(attribute, value);
+    }
   }
 
   return this;
-}
+};
 
 TimeStripe.prototype.align = function(alignment) {
   alignment = typeof alignment !== 'undefined' ? alignment : 'top';
@@ -38,21 +40,21 @@ TimeStripe.prototype.align = function(alignment) {
     this.style({"top": 0, "left": 0});
     break;
   case 'right':
-    this.animate('width')
+    this.animate('width');
     this.style({"top": 0, "right": 0});
     break;
   case 'top':
-    this.animate('height')
+    this.animate('height');
     this.style({"top": 0, "left": 0});
     break;
   case 'bottom':
-    this.animate('height')
+    this.animate('height');
     this.style({"bottom": 0, "left": 0});
     break;
   }
 
   return this;
-}
+};
 
 TimeStripe.prototype.animate = function(property, min_func, max) {
   // Set the CSS property to animate or throw an error.
@@ -77,10 +79,10 @@ TimeStripe.prototype.animate = function(property, min_func, max) {
   }
 
   // This is safe - undefined can be passed straight through.
-  this.max = max
+  this.max = max;
 
   return this;
-}
+};
 
 TimeStripe.prototype.unitsPerHour = function(value) {
   if ( typeof value !== 'undefined' ) {
@@ -90,7 +92,7 @@ TimeStripe.prototype.unitsPerHour = function(value) {
   }
 
   return this;
-}
+};
 
 TimeStripe.prototype.scrolling = function(value) {
   if ( typeof value !== 'undefined' ) {
@@ -100,7 +102,7 @@ TimeStripe.prototype.scrolling = function(value) {
   }
 
   return this;
-}
+};
 
 TimeStripe.prototype.updatePosition = function() {
   // Adjust Bar Postition / Div Size
@@ -116,7 +118,7 @@ TimeStripe.prototype.updatePosition = function() {
   this.element.style.setProperty(this.actor, this.func(value));
 
   if ( this.scroll == 'yes' ) this.scrollPage();
-}
+};
 
 TimeStripe.prototype.scrollPage = function() {
   var time_bar_pos = parseInt(this.element.style.height);
@@ -126,4 +128,4 @@ TimeStripe.prototype.scrollPage = function() {
   } else {
     window.scrollTo(0, 0);
   }
-}
+};
